@@ -3,10 +3,10 @@ MV=0,100,280,320,479,929,0;PS=base64.b85decode("fPjF2fPjF2&ePV(=F-*Lhn<zIsGqEdZ;
 KD=-33,-31,-18,-14,14,18,31,33;BD=-17,-15,15,17;RD=-16,-1,1,16;GD=BD+RD
 DD=0,0,KD,BD,RD,GD,GD;CM={0:13,4:12,7:14,112:7,116:3,119:11}
 TT={};ST=[];Z=1e6;KL=[0]*99;TM=0
-def V(p,s):a=abs(p);f=s&7;r=s>>4;i=(56-8*r+f,r*8+7-f)[p<0];return(MV[a]+(a<6 and PS[a*64+i-64]-128)+(a>5 and-5*S not in B)*-(abs(f-3)+abs(r-3))*4)*(p>0 or-1)
+def V(p,s):q=abs(p);x=s&7;y=s>>4;j=(56-8*y+x,y*8+7-x)[p<0];return(MV[q]+(q<6 and PS[q*64+j-64]-128)+(q>5 and-5*S not in B)*-(abs(x-3)+abs(y-3))*4)*(p>0 or-1)
 def A(s,by):
- for o in 15,17:
-  t=s-o*by
+ for k in 15,17:
+  t=s-k*by
   if not t&136 and B[t]==by:return 1
  for d in KD+GD:
   t=s+d
@@ -17,40 +17,40 @@ def A(s,by):
   if not t&136 and B[t]in(5*by,(3+(d in RD))*by):return 1
  return 0
 def G(cp):
- ms=[];b=B
- for f,p in enumerate(b):
+ mv=[];z=B
+ for f,p in enumerate(z):
   if p*S<1:continue
   a=abs(p)
   if a==1:
    d=16*p;pr=(f+d>>4)in(0,7)
    for t in(f+d,f+d-1,f+d+1):
     if t&136:continue
-    v=b[t]
+    v=z[t]
     if t==f+d and(v or cp>pr):continue
     elif v and v*p>0:continue
     elif t!=f+d and(v*p>0 or not(v or t==E)):continue
-    if pr:ms+=[f|t<<7|q<<14 for q in(5,4,3,2)]
+    if pr:mv+=[f|t<<7|q<<14 for q in(5,4,3,2)]
     else:
-     ms.append(f|t<<7)
-     if t==f+d and(f>>4)in(1,6)and not b[t+d]:ms.append(f|t+d<<7)
+     mv.append(f|t<<7)
+     if t==f+d and(f>>4)in(1,6)and not z[t+d]:mv.append(f|t+d<<7)
   else:
    for d in DD[a]:
     t=f
     while not(t:=t+d)&136:
-     v=b[t]
-     if v*p<0 or not(v or cp):ms.append(f|t<<7)
+     v=z[t]
+     if v*p<0 or not(v or cp):mv.append(f|t<<7)
      if v or a%4==2:break
    if a==6 and not cp:
     for kf,kt,rt in(4,6,1),(4,2,2),(116,118,4),(116,114,8):
      tr=(kf+kt)//2
-     if f==kf and C&rt and not(A(kf,-S)|A(tr,-S)|A(kt,-S)|b[tr]|b[kt]|b[kt-1]):ms.append(kf|kt<<7)
- return ms
+     if f==kf and C&rt and not(A(kf,-S)|A(tr,-S)|A(kt,-S)|z[tr]|z[kt]|z[kt-1]):mv.append(kf|kt<<7)
+ return mv
 def M(m):
  global S,C,E,EV,KP
- ST.append((B*1,S,C,E,EV,KP*1));f=m&127;t=m>>7&127;pr=m>>14;p=B[f];v=B[t];w=t;a=abs(p)
- if a==1 and t==E and not v:w=t-16*p;v=B[w];B[w]=0
- np=pr*p or p;EV+=V(np,t)-V(p,f)-(v and V(v,w)or 0)
- B[f]=0;B[t]=np
+ ST.append((B*1,S,C,E,EV,KP*1));f=m&127;t=m>>7&127;pr=m>>14;p=B[f];v=B[t];u=t;a=abs(p)
+ if a==1 and t==E and not v:u=t-16*p;v=B[u];B[u]=0
+ nq=pr*p or p;EV+=V(nq,t)-V(p,f)-(v and V(v,u)or 0)
+ B[f]=0;B[t]=nq
  if a==6 and abs(t-f)==2:k=t&7<6;rf=t+1-3*k;rt=t-1+2*k;B[rt],B[rf]=B[rf],0;EV+=V(B[rt],rt)-V(B[rt],rf)
  if a==6:KP[p<0]=t
  C&=CM.get(f,15)&CM.get(t,15);E=(f+t)//2 if a==1 and abs(t-f)>16 else-1;S=-S
@@ -89,6 +89,7 @@ def R(d,a,b,pl):
  TT[k]=bm;return sc
 def U(m):f=m&127;t=m>>7&127;q=m>>14;return'%c%d%c%d'%(97+(f&7),(f>>4)+1,97+(t&7),(t>>4)+1)+('nbrq'[q-2]if q else'')
 def P(mv):v=mv.encode();f=v[1]*16+v[0]-881;t=v[3]*16+v[2]-881;q=mv[4:]and b'nbrq'.find(v[4])+2 or 0;return f|t<<7|q<<14
+def T(p,b):return j.load(u.urlopen(H+p,j.dumps(b).encode()))
 def F(g):
  global ND,B,S,C,E,EV,KP
  del ST[:]
@@ -105,6 +106,5 @@ def F(g):
    ms.sort(key=bm.__ne__)
   except KeyError:break
  return U(bm)
-def T(p,b):return j.load(u.urlopen(H+p,j.dumps(b).encode()))
 while(g:=T('/game',{}))['status']!='done':
  while g['status']=='your_move':g=T('/move',{'game':g['game'],'move':F(g)})
